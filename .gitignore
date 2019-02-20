@@ -1,0 +1,11 @@
+# IDE config
+.vscode
+
+# Dependency directories
+node_modules
+
+# Coverage directories
+coverage
+
+# Random files
+s3
