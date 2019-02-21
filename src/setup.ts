@@ -1,59 +1,55 @@
 import AWS from 'aws-sdk'
 import Debug from 'debug'
 
-import { formatConfig } from './util'
+import { buildAWSConfig, formatConfig } from './util'
 import { validateConfig } from './util/validations'
 
 const debug = Debug('s3-setup')
+let S3
 
 const factory = (method, config) => {
   debug(`Factory: ${JSON.stringify(config)}`)
-  return new AWS.S3()[method](config).promise().then((result) => {
+  return S3[method](config).promise().then((result) => {
     debug(`Result: ${JSON.stringify(result)}`)
     return
   })
 }
 
 export const init = (config) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       validateConfig(config)
       config = formatConfig(config)
+      const awsConfig = buildAWSConfig(config)
+      S3 = new AWS.S3(awsConfig)
 
-      AWS.config.update({region: config.region})
-      config.UploadParams = config.UploadParams || {}
-      config.UploadParams.apiVersion = config.apiVersion
-      config.UploadParams.Bucket = config.Bucket.Bucket
+      // Step 1: Create a bucket
+      await factory('createBucket', config.bucketParams)
 
-      if (typeof config.CORSConfiguration === 'object' && !(config.CORSConfiguration instanceof Array)) {
-        arr.push('setCORS')
-      }
-      if (typeof this.config.Policy === 'object' && !(this.config.Policy instanceof Array)) {
-        arr.push('setBucketPolicies')
-      }
-
-      return new AWS.S3().createBucket(this.config.Bucket).promise().then(result => {
-        console.dir(result)
-        return Promise.map(arr, method => {
-          return this[method]().then(() => {
-            return
-          }).catch(error => {
-            throw error
-          })
-        }, { concurrency: 1}).then(() => {
-          logger.info(`S3 bucket and management setup successfully!`)
-          return resolve()
-        }).catch(error => {
-          throw error
-        })
-      }).catch(error => {
-        console.error(error)
-        logger.error(`Error while creating/setting up s3 bucket.\n${error}`)
-        return reject(error)
+      // Step 2: Set up bucket-versioning
+      await factory('putBucketVersioning', {
+        Bucket: config.bucketName,
+        VersioningConfiguration: { MFADelete: 'Disabled', Status: 'Enabled' }
       })
+
+      // Step 3 (Optional): Setup bucket's CORS policy
+      if (typeof config.CORSConfiguration === 'object' && !(config.CORSConfiguration instanceof Array)) {
+        await factory('putBucketCors', {
+          Bucket: config.bucketName,
+          CORSConfiguration: config.CORSConfiguration
+        })
+      }
+
+      // Step 4 (Optional): Setup bucket's access policy
+      if (typeof config.Policy === 'object' && !(config.Policy instanceof Array)) {
+        await factory('putBucketPolicy', {
+          Bucket: config.bucketName,
+          Policy: JSON.stringify(config.Policy)
+        })
+      }
+
+      return resolve(S3)
     } catch (error) {
-      console.error(error)
-      logger.error(`Error while creating/setting up s3 bucket.\n${error}`)
       return reject(error)
     }
   })

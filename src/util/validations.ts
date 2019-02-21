@@ -1,10 +1,11 @@
 export const validateConfig = (config) => {
-  if (typeof config.Bucket !== 'object' && !(config.Bucket instanceof Array)) {
+  if (typeof config.bucketParams !== 'object' && !(config.bucketParams instanceof Array)) {
+    console.log(JSON.stringify(config))
     throw new Error('Kindly provide valid bucket config')
   } else if (typeof config.region === 'undefined' && typeof process.env.AWS_REGION !== 'string') {
     throw new Error('Kindly provide s3 \'region\'')
   } else {
-    if (typeof config.Bucket.name !== 'string' && typeof config.Bucket.Bucket !== 'string') {
+    if (typeof config.bucketParams.name !== 'string' && typeof config.bucketParams.Bucket !== 'string') {
       throw new Error('Kindly provide a valid bucket name')
     }
   }

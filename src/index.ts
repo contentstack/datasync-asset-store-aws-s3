@@ -1,34 +1,22 @@
 import { merge } from 'lodash'
 import { config as internalConfig } from './defaults'
+import { S3 } from './s3'
+import { init } from './setup'
 import { setLogger } from './util/logger'
 import { validateConfig } from './util/validations'
 
 let appConfig: any = {}
-let contentStore
-let assetStore
-let listener
-
-/**
- * @summary Asset store instance interface
- */
-interface IAssetStore {
-  download(): any,
-  unpublish(): any,
-  delete(): any,
-}
 
 /**
  * @summary Application config interface
  */
 export interface IConfig {
-  pattern?: string,
   region: string,
+  bucketParams: any,
+  uploadParams: any,
   apiVersion?: string,
-  Bucket: {
-    name: string,
-    ACL?: string,
-  },
   CORSConfiguration: any,
+  pattern?: string,
   Policy?: any,
 }
 
@@ -64,12 +52,6 @@ export const getConfig = (): IConfig => {
  */
 export { setLogger }
 
-// /**
-//  * @summary Event emitter object, that allows client notifications on event raised by sync-manager queue
-//  * @returns an event-emitter object, events raised: publish, unpublish, delete, error
-//  */
-// export { notifications }
-
 /**
  * @summary
  *  Starts the sync manager utility
@@ -78,11 +60,18 @@ export { setLogger }
  *  Once done, builds the app's config and logger
  * @param {Object} config - Optional application config.
  */
-export const start = (config?: IConfig): Promise<{}> => {
+export const start = (config?: IConfig) => {
   return new Promise((resolve, reject) => {
     try {
-      appConfig = merge(appConfig, config || {})
-      
+      appConfig = merge(internalConfig, appConfig, config || {})
+      validateConfig(appConfig.assetStore)
+      return init(appConfig.assetStore)
+        .then((awsInstance) => {
+          const s3 = new S3(awsInstance, appConfig)
+          
+          return resolve(s3)
+        })
+        .catch(reject)
     } catch (error) {
       return reject(error)
     }
