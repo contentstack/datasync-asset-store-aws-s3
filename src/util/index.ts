@@ -1,7 +1,14 @@
 import { compact } from 'lodash'
 
 const patternInterpretation = (config) => {
-  return compact(config.pattern.split('/:'))
+  const keys = compact(config.pattern.split('/'))
+  keys.forEach((key, idx) => {
+    if ((key as string).length === 0) {
+      keys.splice(idx, 1)
+    }
+  })
+
+  return keys
 }
 
 export const formatConfig = (config) => {

@@ -60,11 +60,11 @@ export class S3 {
     return pass
   }
 
-  // public delete (asset) {
-  //   return new Promise((resolve, reject) => {
+  public delete (asset) {
+    return new Promise((resolve, reject) => {
 
-  //   })
-  // }
+    })
+  }
 
   // public unpublish (asset) {
   //   return new Promise((resolve, reject) => {
@@ -100,10 +100,15 @@ export class S3 {
     debug(`extracting asset url from: ${JSON.stringify(asset.data)}.\nKeys expected from this asset are: ${JSON.stringify(keys)}`)
 
     for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
-      if (asset.data[keys[i]]) {
+      if (keys[i].charAt(0) !== ':') {
+        continue;
+      }
+      
+      const key = keys[i].slice('1')
+      if (asset.data[key]) {
         values.push(asset.data[keys[i]])
       } else {
-        throw new TypeError(`The key ${keys[i]} did not exist on ${JSON.stringify(asset.data)}`)
+        throw new TypeError(`The key ${key} did not exist on ${JSON.stringify(asset.data)}`)
       }
     }
 
