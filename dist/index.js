@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
-const defaults_1 = require("./defaults");
+const config_1 = require("./config");
 const s3_1 = require("./s3");
 const setup_1 = require("./setup");
 const logger_1 = require("./util/logger");
@@ -17,7 +17,7 @@ exports.getConfig = () => {
 exports.start = (config) => {
     return new Promise((resolve, reject) => {
         try {
-            appConfig = lodash_1.merge(defaults_1.config, appConfig, config || {});
+            appConfig = lodash_1.merge(config_1.config, appConfig, config || {});
             validations_1.validateConfig(appConfig.assetStore);
             return setup_1.init(appConfig.assetStore)
                 .then((awsInstance) => {

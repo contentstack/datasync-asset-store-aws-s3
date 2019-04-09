@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_1 = require("lodash");
 const patternInterpretation = (config) => {
-    return lodash_1.compact(config.pattern.split('/:'));
+    return lodash_1.compact(config.pattern.split('/'));
 };
 exports.formatConfig = (config) => {
     const bucket = config.bucketParams;
@@ -17,7 +17,7 @@ exports.formatConfig = (config) => {
     config.uploadParams.Bucket = bucket.Bucket;
     config.region = config.region || process.env.AWS_REGION;
     config.apiVersion = config.apiVersion || 'latest';
-    config.keys = patternInterpretation(config);
+    config.patternKeys = patternInterpretation(config);
     return config;
 };
 exports.buildAWSConfig = (config) => {

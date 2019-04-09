@@ -1,9 +1,26 @@
+interface IAsset {
+    locale: string;
+    url: string;
+    uid: string;
+    _internal_url?: string;
+    apiVersion?: string;
+    apiKey?: string;
+    download_id?: string;
+    downloadId?: string;
+    filename?: string;
+    title?: string;
+    Key?: string;
+    Location?: string;
+    VersionId?: string;
+}
 export declare class S3 {
-    private appConfig;
     private config;
     private s3;
     constructor(s3: any, config: any);
-    download(asset: any): Promise<{}>;
+    download(asset: IAsset): Promise<{}>;
     private uploadStream;
-    private extractFolderPaths;
+    delete(assets: IAsset[]): Promise<any[]>;
+    unpublish(asset: IAsset): Promise<{}>;
+    private extractDetails;
 }
+export {};

@@ -1,5 +1,5 @@
 import { merge } from 'lodash'
-import { config as internalConfig } from './defaults'
+import { config as internalConfig } from './config'
 import { S3 } from './s3'
 import { init } from './setup'
 import { setLogger } from './util/logger'

@@ -27,6 +27,12 @@ export declare const config: {
                 Action: string[];
             }[];
         };
-        assetFolderPrefixKey: string;
+        internal: {
+            requiredKeys: {
+                publish: string[];
+                unpublish: string[];
+                delete: string[];
+            };
+        };
     };
 };

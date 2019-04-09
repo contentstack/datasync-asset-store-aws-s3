@@ -4,9 +4,6 @@
 export const config = {
   assetStore: {
     // Optional: Use this, if any key passed in the pattern doesn't exist on the asset by default Or if the key exists on the asset, but needs overriding
-    // patternKeys: {
-    //   apiKey: ''
-    // },
     pattern: '/:uid/:filename',
     region: 'us-east-1', // Required
     apiVersion: '2006-03-01', // Required
@@ -40,6 +37,12 @@ export const config = {
         }
       ]
     },
-    assetFolderPrefixKey: 'v3/assets',
+    internal: {
+      requiredKeys: {
+        publish: ['locale', 'uid', 'url'],
+        unpublish: ['locale', 'uid', 'url', 'Key'],
+        delete: ['locale', 'uid', 'url', 'Key']
+      }
+    }
   }
 }

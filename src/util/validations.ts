@@ -1,3 +1,8 @@
+import { hasIn } from 'lodash'
+import { config as internalConfig } from '../config'
+
+const requiredKeys = internalConfig.assetStore.internal.requiredKeys
+
 export const validateConfig = (config) => {
   if (typeof config.bucketParams !== 'object' && !(config.bucketParams instanceof Array)) {
     console.log(JSON.stringify(config))
@@ -26,4 +31,29 @@ export const validateLogger = (logger) => {
   })
 
   return !flag
+}
+
+const validateAsset = (action, asset) => {
+  if (typeof asset !== 'object' || asset === null || asset instanceof Array) {
+    throw new Error(`Asset ${asset} should be of type 'plain object'`)
+  }
+
+  const keys = requiredKeys[action]
+  keys.forEach((key) => {
+    if (!(hasIn(asset, key))) {
+      throw new Error(`Required key:${key} not found in ${JSON.stringify(asset)}`)
+    }
+  })
+}
+
+export const validatePublishedAsset = (asset) => {
+  validateAsset('publish', asset)
+}
+
+export const validateUnpublishedAsset = (asset) => {
+  validateAsset('unpublish', asset)
+}
+
+export const validateDeletedAsset = (asset) => {
+  validateAsset('delete', asset)
 }

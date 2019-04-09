@@ -33,6 +33,12 @@ exports.config = {
                 }
             ]
         },
-        assetFolderPrefixKey: 'v3/assets',
+        internal: {
+            requiredKeys: {
+                publish: ['locale', 'uid', 'url'],
+                unpublish: ['locale', 'uid', 'url', 'Key'],
+                delete: ['locale', 'uid', 'url', 'Key']
+            }
+        }
     }
 };

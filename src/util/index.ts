@@ -1,7 +1,7 @@
 import { compact } from 'lodash'
 
 const patternInterpretation = (config) => {
-  return compact(config.pattern.split('/:'))
+  return compact(config.pattern.split('/'))
 }
 
 export const formatConfig = (config) => {
@@ -19,7 +19,7 @@ export const formatConfig = (config) => {
   config.uploadParams.Bucket = bucket.Bucket
   config.region = config.region || process.env.AWS_REGION
   config.apiVersion = config.apiVersion || 'latest'
-  config.keys = patternInterpretation(config)
+  config.patternKeys = patternInterpretation(config)
 
   return config
 }

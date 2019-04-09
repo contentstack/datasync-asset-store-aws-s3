@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+const config_1 = require("../config");
+const requiredKeys = config_1.config.assetStore.internal.requiredKeys;
 exports.validateConfig = (config) => {
     if (typeof config.bucketParams !== 'object' && !(config.bucketParams instanceof Array)) {
         console.log(JSON.stringify(config));
@@ -27,4 +30,24 @@ exports.validateLogger = (logger) => {
         }
     });
     return !flag;
+};
+const validateAsset = (action, asset) => {
+    if (typeof asset !== 'object' || asset === null || asset instanceof Array) {
+        throw new Error(`Asset ${asset} should be of type 'plain object'`);
+    }
+    const keys = requiredKeys[action];
+    keys.forEach((key) => {
+        if (!(lodash_1.hasIn(asset, key))) {
+            throw new Error(`Required key:${key} not found in ${JSON.stringify(asset)}`);
+        }
+    });
+};
+exports.validatePublishedAsset = (asset) => {
+    validateAsset('publish', asset);
+};
+exports.validateUnpublishedAsset = (asset) => {
+    validateAsset('unpublish', asset);
+};
+exports.validateDeletedAsset = (asset) => {
+    validateAsset('delete', asset);
 };
