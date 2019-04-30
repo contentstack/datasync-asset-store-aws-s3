@@ -1,0 +1,15 @@
+{
+  "uid": "four",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "four",
+    "filename": "playboy.png",
+    "_version": 4,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/four/four-v4/playboy.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "Playboy - Magazine",
+    "description": ""
+  }
+}

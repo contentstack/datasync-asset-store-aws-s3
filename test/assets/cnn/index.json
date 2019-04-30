@@ -1,0 +1,15 @@
+{
+  "uid": "two",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "two",
+    "filename": "cnn.png",
+    "_version": 2,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/two/two-v2/cnn.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "CNN - News Network",
+    "description": ""
+  }
+}

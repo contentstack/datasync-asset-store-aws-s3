@@ -1,0 +1,15 @@
+{
+  "uid": "five",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "five",
+    "filename": "tumblr.png",
+    "_version": 5,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/five/five-v5/tumblr.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "Tumblr - Mobile App",
+    "description": ""
+  }
+}

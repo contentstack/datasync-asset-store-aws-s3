@@ -1,12 +1,14 @@
 import { setLogger } from './util/logger';
 export interface IConfig {
-    region: string;
-    bucketParams: any;
-    uploadParams: any;
-    apiVersion?: string;
-    CORSConfiguration: any;
-    pattern?: string;
-    Policy?: any;
+    assetStore: {
+        region?: string;
+        bucketParams: any;
+        uploadParams?: any;
+        apiVersion?: string;
+        CORSConfiguration?: any;
+        pattern?: string;
+        Policy?: any;
+    };
 }
 export interface ILogger {
     warn(): any;

@@ -1,0 +1,15 @@
+{
+  "uid": "one",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "one",
+    "filename": "beats.png",
+    "_version": 1,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/one/one-v1/beats.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "Beats - Music",
+    "description": ""
+  }
+}

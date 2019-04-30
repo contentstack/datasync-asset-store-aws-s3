@@ -1,0 +1,15 @@
+{
+  "uid": "three",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "three",
+    "filename": "niki.png",
+    "_version": 3,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/three/three-v3/niki.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "Japanese stock SYM",
+    "description": ""
+  }
+}

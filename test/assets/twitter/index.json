@@ -1,0 +1,15 @@
+{
+  "uid": "six",
+  "locale": "en-us",
+  "content_type_uid": "_assets",
+  "data": {
+    "uid": "six",
+    "filename": "twitter.png",
+    "_version": 6,
+    "url": "https://images.contentstack.io/v3/assets/stack-api-key/six/six-v6/twitter.png",
+    "locale": "en-us",
+    "file_size": "",
+    "title": "Twitter - Social media platform",
+    "description": ""
+  }
+}

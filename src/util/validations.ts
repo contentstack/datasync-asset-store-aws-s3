@@ -4,8 +4,7 @@ import { config as internalConfig } from '../config'
 const requiredKeys = internalConfig.assetStore.internal.requiredKeys
 
 export const validateConfig = (config) => {
-  if (typeof config.bucketParams !== 'object' && !(config.bucketParams instanceof Array)) {
-    console.log(JSON.stringify(config))
+  if (typeof config.bucketParams !== 'object' || !(config.bucketParams.Bucket || config.bucketParams.name)) {
     throw new Error('Kindly provide valid bucket config')
   } else if (typeof config.region === 'undefined' && typeof process.env.AWS_REGION !== 'string') {
     throw new Error('Kindly provide s3 \'region\'')

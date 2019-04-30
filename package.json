@@ -1,7 +1,7 @@
 {
   "name": "contentstack-asset-store-aws-s3",
   "author": "Contentstack Ecosystem",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Store asset files downloaded from Contentstack",
   "main": "dist",
   "dependencies": {

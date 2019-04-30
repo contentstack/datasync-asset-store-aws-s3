@@ -4,8 +4,7 @@ const lodash_1 = require("lodash");
 const config_1 = require("../config");
 const requiredKeys = config_1.config.assetStore.internal.requiredKeys;
 exports.validateConfig = (config) => {
-    if (typeof config.bucketParams !== 'object' && !(config.bucketParams instanceof Array)) {
-        console.log(JSON.stringify(config));
+    if (typeof config.bucketParams !== 'object' || !(config.bucketParams.Bucket || config.bucketParams.name)) {
         throw new Error('Kindly provide valid bucket config');
     }
     else if (typeof config.region === 'undefined' && typeof process.env.AWS_REGION !== 'string') {
