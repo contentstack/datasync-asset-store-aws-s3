@@ -49,11 +49,11 @@ Here is the config table for the module:
 |pattern|string|/:uid/:filename|**Optional.** The pattern to store asset is s3|
 |region|string|us-east-1|**Optional.** The aws region|
 |apiVersion|string|2006-03-01|**Optional.** The aws api version|
-|credentials| object |**[see config below](https://github.com/contentstack/datasync-content-store--aws-s3#detailed-configs)** |**Required.** Specify access key and secret key|
-|bucketParams| object |**[see config below](https://github.com/contentstack/datasync-content-store--aws-s3#detailed-configs)** |**Required.** Specify bucket name and ACL|
-|uploadParams|object|**[see config below](https://github.com/contentstack/datasync-content-store--aws-s3#detailed-configs)** |**Optional.** Specify upload params|
-|CORSConfiguration|object|**[see config below](https://github.com/contentstack/datasync-content-store-aws-s3#detailed-configs)** |**Optional.** CORS configs|
-|Policy|object|**[see config below](https://github.com/contentstack/datasync-content-store-aws-s3#detailed-configs)** |**Required.** Specify policy|
+|credentials| object |**[see config below](https://github.com/contentstack/datasync-asset-store-aws-s3#detailed-configs)** |**Required.** Specify access key and secret key|
+|bucketParams| object |**[see config below](https://github.com/contentstack/datasync-asset-store-aws-s3#detailed-configs)** |**Required.** Specify bucket name and ACL|
+|uploadParams|object|**[see config below](https://github.com/contentstack/datasync-asset-store-aws-s3#detailed-configs)** |**Optional.** Specify upload params|
+|CORSConfiguration|object|**[see config below](https://github.com/contentstack/datasync-asset-store-aws-s3#detailed-configs)** |**Optional.** CORS configs|
+|Policy|object|**[see config below](https://github.com/contentstack/datasync-asset-store-aws-s3#detailed-configs)** |**Required.** Specify policy|
 
 ### Detailed configs
 
