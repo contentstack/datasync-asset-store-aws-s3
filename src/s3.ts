@@ -65,7 +65,7 @@ export class S3 {
       const out = request({ url: asset.url });
       out.on('response', response => {
         if (asset.download_id) {
-          let attachment: string = <string>response.headers['content-disposition']
+          let attachment: string = response.headers['content-disposition']
           asset.filename =  decodeURIComponent(attachment.split('=')[1])
         }
       })
@@ -102,7 +102,7 @@ export class S3 {
       .promise()
       .then((s3Response) => {
         debug(`S3 asset upload response: ${JSON.stringify(s3Response)}`)
-        asset.VersionId = (s3Response as any).VersionId
+        asset.VersionId = s3Response.VersionId
         asset.Location = s3Response.Location
         asset.ETag = s3Response.ETag
         asset.Key = s3Response.Key
