@@ -5,7 +5,7 @@
   "description": "Store asset files downloaded from Contentstack",
   "main": "dist",
   "dependencies": {
-    "aws-sdk": "^2.406.0",
+    "aws-sdk": "^2.1231.0",
     "debug": "^4.3.4",
     "lodash": "^4.17.21"
   },
