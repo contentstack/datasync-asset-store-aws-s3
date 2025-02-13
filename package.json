@@ -21,7 +21,9 @@
     "jest": "^29.0.3",
     "mkdirp": "^0.5.1",
     "nock": "^10.0.6",
+    "node-notifier": "^10.0.1",
     "npm": "^8.19.2",
+    "request": "^2.88.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^29.0.2",
     "tslint": "5.11.0",
@@ -36,7 +38,7 @@
     "test": "jest --colors --coverage --verbose"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=22"
   },
   "keywords": [
     "contentstack",
