@@ -9,3 +9,6 @@ coverage
 
 # Random files
 s3
+
+talisman_output.log
+snyk_output.log
