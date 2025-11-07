@@ -3,14 +3,15 @@ import Debug from 'debug'
 
 import { buildAWSConfig, formatConfig } from './util'
 import { validateConfig } from './util/validations'
+import { MESSAGES } from './util/messages'
 
 const debug = Debug('s3-setup')
 let S3
 
 const factory = (method, config) => {
-  debug(`Factory: ${JSON.stringify(config)}`)
+  debug(MESSAGES.FACTORY_CONFIG(config))
   return S3[method](config).promise().then((result) => {
-    debug(`Result: ${JSON.stringify(result)}`)
+    debug(MESSAGES.FACTORY_RESULT(result))
     return
   })
 }
