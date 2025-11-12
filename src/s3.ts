@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash'
 import request from 'request'
 import stream from 'stream'
 import { validatePublishedAsset, validateUnpublishedAsset, validateDeletedAsset } from './util/validations'
+import { MESSAGES, ERRORS } from './util/messages'
 
 const debug = Debug('s3')
 
@@ -72,7 +73,7 @@ export class S3 {
       .pipe(this.uploadStream(asset, resolve, reject))
       .on('error', reject)
       .on('close', status => {
-        debug(`Connection closed. Status: ${JSON.stringify(status)}`)
+        debug(MESSAGES.CONNECTION_CLOSED(status))
 
         return resolve(asset)
       })
@@ -101,7 +102,7 @@ export class S3 {
       .on('httpUploadProgress', debug)
       .promise()
       .then((s3Response) => {
-        debug(`S3 asset upload response: ${JSON.stringify(s3Response)}`)
+        debug(MESSAGES.S3_UPLOAD_RESPONSE(s3Response))
         asset.VersionId = s3Response.VersionId
         asset.Location = s3Response.Location
         asset.ETag = s3Response.ETag
@@ -144,7 +145,7 @@ export class S3 {
               if (error) {
                 return reject(error)
               }
-              debug(`S3 asset (${asset.uid}) response ${JSON.stringify(response)}`)
+              debug(MESSAGES.S3_ASSET_RESPONSE(asset.uid, response))
       
               return resolve(asset)
             })
@@ -180,7 +181,7 @@ export class S3 {
         if (error) {
           return reject(error)
         }
-        debug(`S3 asset (${asset.uid}) response ${JSON.stringify(response)}`)
+        debug(MESSAGES.S3_ASSET_RESPONSE(asset.uid, response))
 
         return resolve(asset)
       })
@@ -214,7 +215,7 @@ export class S3 {
         }
       }
     }
-    debug(`extracting asset url from: ${JSON.stringify(asset)}.\nKeys expected from this asset are: ${JSON.stringify(keys)}`)
+    debug(MESSAGES.EXTRACTING_ASSET_URL(asset, keys))
 
     for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
       if (keys[i].charAt(0) === ':') {
@@ -222,7 +223,7 @@ export class S3 {
         if (asset[k]) {
           values.push(asset[k])
         } else {
-          throw new TypeError(`The key ${keys[i]} did not exist on ${JSON.stringify(asset)}`)
+          throw new TypeError(ERRORS.KEY_NOT_FOUND(keys[i], asset))
         }
       } else {
         values.push(keys[i])

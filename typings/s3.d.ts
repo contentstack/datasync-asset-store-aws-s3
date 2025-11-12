@@ -17,10 +17,10 @@ export declare class S3 {
     private config;
     private s3;
     constructor(s3: any, config: any);
-    download(asset: IAsset): Promise<{}>;
+    download(asset: IAsset): Promise<unknown>;
     private uploadStream;
     delete(assets: IAsset[]): Promise<any[]>;
-    unpublish(asset: IAsset): Promise<{}>;
+    unpublish(asset: IAsset): Promise<unknown>;
     private extractDetails;
 }
 export {};

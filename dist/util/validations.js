@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateDeletedAsset = exports.validateUnpublishedAsset = exports.validatePublishedAsset = exports.validateLogger = exports.validateConfig = void 0;
 const lodash_1 = require("lodash");
 const config_1 = require("../config");
 const requiredKeys = config_1.config.assetStore.internal.requiredKeys;
-exports.validateConfig = (config) => {
+const validateConfig = (config) => {
     if (typeof config.bucketParams !== 'object' || !(config.bucketParams.Bucket || config.bucketParams.name)) {
         throw new Error('Kindly provide valid bucket config');
     }
@@ -17,7 +18,8 @@ exports.validateConfig = (config) => {
     }
     return config;
 };
-exports.validateLogger = (logger) => {
+exports.validateConfig = validateConfig;
+const validateLogger = (logger) => {
     let flag = false;
     if (!logger) {
         return flag;
@@ -30,23 +32,27 @@ exports.validateLogger = (logger) => {
     });
     return !flag;
 };
+exports.validateLogger = validateLogger;
 const validateAsset = (action, asset) => {
     if (typeof asset !== 'object' || asset === null || asset instanceof Array) {
         throw new Error(`Asset ${asset} should be of type 'plain object'`);
     }
     const keys = requiredKeys[action];
     keys.forEach((key) => {
-        if (!(lodash_1.hasIn(asset, key))) {
+        if (!((0, lodash_1.hasIn)(asset, key))) {
             throw new Error(`Required key:${key} not found in ${JSON.stringify(asset)}`);
         }
     });
 };
-exports.validatePublishedAsset = (asset) => {
+const validatePublishedAsset = (asset) => {
     validateAsset('publish', asset);
 };
-exports.validateUnpublishedAsset = (asset) => {
+exports.validatePublishedAsset = validatePublishedAsset;
+const validateUnpublishedAsset = (asset) => {
     validateAsset('unpublish', asset);
 };
-exports.validateDeletedAsset = (asset) => {
+exports.validateUnpublishedAsset = validateUnpublishedAsset;
+const validateDeletedAsset = (asset) => {
     validateAsset('delete', asset);
 };
+exports.validateDeletedAsset = validateDeletedAsset;
