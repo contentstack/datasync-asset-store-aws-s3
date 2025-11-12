@@ -3,13 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.S3 = void 0;
 const debug_1 = __importDefault(require("debug"));
 const path_1 = require("path");
 const lodash_1 = require("lodash");
 const request_1 = __importDefault(require("request"));
 const stream_1 = __importDefault(require("stream"));
 const validations_1 = require("./util/validations");
-const debug = debug_1.default('s3');
+const messages_1 = require("./util/messages");
+const debug = (0, debug_1.default)('s3');
 class S3 {
     constructor(s3, config) {
         this.config = config.assetStore;
@@ -17,8 +19,8 @@ class S3 {
     }
     download(asset) {
         return new Promise((resolve, reject) => {
-            validations_1.validatePublishedAsset(asset);
-            const out = request_1.default({ url: asset.url });
+            (0, validations_1.validatePublishedAsset)(asset);
+            const out = (0, request_1.default)({ url: asset.url });
             out.on('response', response => {
                 if (asset.download_id) {
                     let attachment = response.headers['content-disposition'];
@@ -28,7 +30,7 @@ class S3 {
                 .pipe(this.uploadStream(asset, resolve, reject))
                 .on('error', reject)
                 .on('close', status => {
-                debug(`Connection closed. Status: ${JSON.stringify(status)}`);
+                debug(messages_1.MESSAGES.CONNECTION_CLOSED(status));
                 return resolve(asset);
             })
                 .end();
@@ -38,14 +40,14 @@ class S3 {
         const patternKeys = this.extractDetails(asset);
         const uriPattern = path_1.join.apply(this, patternKeys);
         const pass = new stream_1.default.PassThrough();
-        const params = lodash_1.cloneDeep(this.config.uploadParams);
+        const params = (0, lodash_1.cloneDeep)(this.config.uploadParams);
         params.Key = uriPattern;
         params.Body = pass;
         this.s3.upload(params)
             .on('httpUploadProgress', debug)
             .promise()
             .then((s3Response) => {
-            debug(`S3 asset upload response: ${JSON.stringify(s3Response)}`);
+            debug(messages_1.MESSAGES.S3_UPLOAD_RESPONSE(s3Response));
             asset.VersionId = s3Response.VersionId;
             asset.Location = s3Response.Location;
             asset.ETag = s3Response.ETag;
@@ -57,7 +59,7 @@ class S3 {
         return pass;
     }
     delete(assets) {
-        assets.forEach((asset) => validations_1.validateDeletedAsset(asset));
+        assets.forEach((asset) => (0, validations_1.validateDeletedAsset)(asset));
         const promisifiedBucket = [];
         assets.forEach((asset) => {
             promisifiedBucket.push((() => {
@@ -69,7 +71,7 @@ class S3 {
                         if (error) {
                             return reject(error);
                         }
-                        debug(`S3 asset (${asset.uid}) response ${JSON.stringify(response)}`);
+                        debug(messages_1.MESSAGES.S3_ASSET_RESPONSE(asset.uid, response));
                         return resolve(asset);
                     });
                 });
@@ -79,7 +81,7 @@ class S3 {
     }
     unpublish(asset) {
         return new Promise((resolve, reject) => {
-            validations_1.validateUnpublishedAsset(asset);
+            (0, validations_1.validateUnpublishedAsset)(asset);
             return this.s3.deleteObject({
                 Bucket: this.config.bucketParams.Bucket,
                 Key: asset.Key
@@ -87,7 +89,7 @@ class S3 {
                 if (error) {
                     return reject(error);
                 }
-                debug(`S3 asset (${asset.uid}) response ${JSON.stringify(response)}`);
+                debug(messages_1.MESSAGES.S3_ASSET_RESPONSE(asset.uid, response));
                 return resolve(asset);
             });
         });
@@ -110,7 +112,7 @@ class S3 {
                 }
             }
         }
-        debug(`extracting asset url from: ${JSON.stringify(asset)}.\nKeys expected from this asset are: ${JSON.stringify(keys)}`);
+        debug(messages_1.MESSAGES.EXTRACTING_ASSET_URL(asset, keys));
         for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
             if (keys[i].charAt(0) === ':') {
                 const k = keys[i].substring(1);
@@ -118,7 +120,7 @@ class S3 {
                     values.push(asset[k]);
                 }
                 else {
-                    throw new TypeError(`The key ${keys[i]} did not exist on ${JSON.stringify(asset)}`);
+                    throw new TypeError(messages_1.ERRORS.KEY_NOT_FOUND(keys[i], asset));
                 }
             }
             else {

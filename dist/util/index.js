@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildAWSConfig = exports.formatConfig = void 0;
 const lodash_1 = require("lodash");
 const patternInterpretation = (config) => {
-    return lodash_1.compact(config.pattern.split('/'));
+    return (0, lodash_1.compact)(config.pattern.split('/'));
 };
-exports.formatConfig = (config) => {
+const formatConfig = (config) => {
     const bucket = config.bucketParams;
     if (bucket.name) {
         bucket.Bucket = bucket.name;
@@ -20,7 +21,8 @@ exports.formatConfig = (config) => {
     config.patternKeys = patternInterpretation(config);
     return config;
 };
-exports.buildAWSConfig = (config) => {
+exports.formatConfig = formatConfig;
+const buildAWSConfig = (config) => {
     const awsConfig = {
         apiVersion: config.apiVersion,
         region: config.region
@@ -33,3 +35,4 @@ exports.buildAWSConfig = (config) => {
     }
     return awsConfig;
 };
+exports.buildAWSConfig = buildAWSConfig;
