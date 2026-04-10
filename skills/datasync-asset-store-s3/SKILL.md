@@ -37,9 +37,3 @@ description: Public API, S3 asset store class, configuration, and DataSync Manag
 ### Versioning
 
 - Follow semver for npm releases; breaking changes to `start`’s resolved object or config contract need a major bump and README/changelog updates
-
-## References
-
-- [`../typescript-style/SKILL.md`](../typescript-style/SKILL.md) — TypeScript layout
-- [`../framework/SKILL.md`](../framework/SKILL.md) — AWS SDK and S3 specifics
-- [`README.md`](../../README.md) — end-user configuration tables

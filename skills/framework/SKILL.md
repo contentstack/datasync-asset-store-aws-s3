@@ -15,7 +15,7 @@ description: AWS SDK v2, S3 usage, streaming uploads, and runtime assumptions fo
 
 ### AWS SDK
 
-- Library uses **`aws-sdk`** v2 (not AWS SDK for JavaScript v3 modular clients)
+- Library uses **`aws-sdk`** v2 (not AWS SDK for JavaScript v3 modular clients); class reference: [AWS.S3](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)
 - S3 client is constructed in [`src/setup.ts`](../../src/setup.ts) and injected into [`S3`](../../src/s3.ts)
 
 ### Streaming and HTTP
@@ -30,8 +30,3 @@ description: AWS SDK v2, S3 usage, streaming uploads, and runtime assumptions fo
 ### Node.js
 
 - Target runtime is **Node >= 22** per `engines`; avoid APIs that require newer Node unless `engines` and docs are updated together
-
-## References
-
-- [`../datasync-asset-store-s3/SKILL.md`](../datasync-asset-store-s3/SKILL.md) — config and public API
-- [AWS SDK for JavaScript v2 — S3](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html)

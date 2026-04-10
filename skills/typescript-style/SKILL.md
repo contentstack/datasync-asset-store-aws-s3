@@ -28,8 +28,3 @@ description: TypeScript compiler settings, source layout, and conventions for sr
 
 - TSLint is the configured linter (`tslint.json`); run `npm run tslint` before merge
 - Prefer existing patterns: class `S3` with public methods, small `util/` helpers, `debug` namespaces per file
-
-## References
-
-- [`../datasync-asset-store-s3/SKILL.md`](../datasync-asset-store-s3/SKILL.md) — exported API surface
-- [`../dev-workflow/SKILL.md`](../dev-workflow/SKILL.md) — build commands
