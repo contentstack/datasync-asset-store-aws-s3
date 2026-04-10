@@ -26,8 +26,3 @@ description: PR expectations and review checklist for the DataSync AWS S3 asset 
 - **Blocker**: broken build, failing tests, secret leak, or breaking change without semver/docs
 - **Major**: missing tests for non-trivial logic, unclear error handling for S3/network failures
 - **Minor**: naming, comment updates, small refactors for readability
-
-## References
-
-- [`../datasync-asset-store-s3/SKILL.md`](../datasync-asset-store-s3/SKILL.md) — API surface
-- [`../testing/SKILL.md`](../testing/SKILL.md) — test expectations
