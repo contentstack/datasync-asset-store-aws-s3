@@ -37,8 +37,3 @@ description: Jest + ts-jest setup, test file locations, coverage, and safe handl
 ### Coverage
 
 - Reports: `coverage/` (JSON + HTML per Jest config); ensure new code paths are covered when fixing bugs or adding behavior
-
-## References
-
-- [`../dev-workflow/SKILL.md`](../dev-workflow/SKILL.md) — `npm test` in local workflow
-- [`../framework/SKILL.md`](../framework/SKILL.md) — AWS S3 behavior under test

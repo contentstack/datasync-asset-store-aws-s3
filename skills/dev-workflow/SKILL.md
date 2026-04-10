@@ -37,9 +37,3 @@ description: Branches, local commands, Husky pre-commit (Talisman/Snyk), and Git
 
 - Use feature branches; target the repo’s default branch per team process (not hard-coded here)
 - Keep changes scoped; this package is consumed by DataSync Manager—avoid breaking the exported `start` / asset store contract without coordination
-
-## References
-
-- [`../datasync-asset-store-s3/SKILL.md`](../datasync-asset-store-s3/SKILL.md) — public API and integration
-- [`../testing/SKILL.md`](../testing/SKILL.md) — Jest and coverage
-- [DataSync Manager](https://github.com/contentstack/datasync-manager) — consumer integration
