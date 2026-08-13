@@ -1,7 +1,7 @@
 {
   "name": "contentstack-asset-store-aws-s3",
   "author": "Contentstack Ecosystem",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Store asset files downloaded from Contentstack",
   "main": "dist",
   "dependencies": {
@@ -57,5 +57,8 @@
   "bugs": {
     "url": "https://github.com/iyerrama29/contentstack-asset-store-aws-s3/issues"
   },
-  "homepage": "https://www.contentstack.com/"
+  "homepage": "https://www.contentstack.com/",
+  "overrides": {
+    "uuid": "11.1.1"
+  }
 }
